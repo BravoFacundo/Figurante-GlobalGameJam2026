@@ -87,10 +87,6 @@ public class MusicManager : MonoBehaviour
         currentState = MusicState.None;
     }
 
-    // =========================
-    // INTERNAL
-    // =========================
-
     private void PlayNewClip(AudioClip clip, bool loop)
     {
         audioSource.clip = clip;

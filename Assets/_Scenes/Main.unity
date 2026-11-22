@@ -859,8 +859,8 @@ Transform:
   m_GameObject: {fileID: 184793062}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.4963, y: 7.1665, z: 0}
-  m_LocalScale: {x: 84.59332, y: 6.6720543, z: 1}
+  m_LocalPosition: {x: 15.4963, y: 6.7687, z: 0}
+  m_LocalScale: {x: 84.59332, y: 7.467363, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1305353712}
@@ -1527,7 +1527,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -427, y: -204.61984}
+  m_AnchoredPosition: {x: -427, y: -127}
   m_SizeDelta: {x: 441.2964, y: 110.6121}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &276275497
@@ -2503,11 +2503,11 @@ Transform:
   m_GameObject: {fileID: 463520022}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.8, y: -3, z: 0}
+  m_LocalPosition: {x: -20.69, y: -2.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 969940696}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &485295333
 GameObject:
@@ -2538,7 +2538,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 969940696}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &507320950
 GameObject:
@@ -2920,7 +2920,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -427, y: -374.43518}
+  m_AnchoredPosition: {x: -427, y: -328}
   m_SizeDelta: {x: 441.2964, y: 110.6121}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &616855698
@@ -3102,7 +3102,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 764922230}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ButtonPressed_Return
+        m_MethodName: ButtonPressed_ReturnEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3168,7 +3168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &663990707
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3543,6 +3543,9 @@ MonoBehaviour:
   soundManager: {fileID: 57282669}
   musicManager: {fileID: 1456692669}
   cinematicHandler: {fileID: 1583860915}
+  startedGame: 0
+  endedTutorial: 0
+  playText: {fileID: 942698894}
   _gameTimeInSeconds: 120
   _startHour: 23
   _startMinute: 58
@@ -4485,9 +4488,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 485295334}
-  - {fileID: 463520023}
+  m_Children: []
   m_Father: {fileID: 884929153}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &993096147
@@ -5601,7 +5602,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StartGameTrigger
   hasEntered: 0
   gameController: {fileID: 1867941677}
-  entrance: {fileID: 62785496}
 --- !u!1 &1345413156
 GameObject:
   m_ObjectHideFlags: 0
@@ -5768,7 +5768,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 764922230}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: ButtonPressed_Return
+        m_MethodName: ButtonPressed_ReturnEnd
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6136,7 +6136,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: ac0ce5f648d636bc296c242f03a285e4, type: 3}
+  m_Resource: {fileID: 8300000, guid: 1abe997db93b64707b394d3e75c225c6, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.2
   m_Pitch: 1
@@ -7884,7 +7884,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -427, y: 145}
+  m_AnchoredPosition: {x: -427, y: 75}
   m_SizeDelta: {x: 441.2964, y: 110.6121}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1722112219
@@ -8694,8 +8694,13 @@ MonoBehaviour:
   _uiManager: {fileID: 764922230}
   musicManager: {fileID: 1456692669}
   carriage: {fileID: 2100244119}
+  player: {fileID: 453469809930822372}
+  startPosCarriage: {fileID: 485295334}
+  entrance: {fileID: 62785496}
   porter: {fileID: 8222316790355571777}
   cinematicHandler: {fileID: 1583860915}
+  startPosPlayer: {fileID: 463520023}
+  startGameTrigger: {fileID: 1318553977}
 --- !u!1 &1885134014
 GameObject:
   m_ObjectHideFlags: 0
@@ -9284,7 +9289,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -99
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -3966208004060416589, guid: 6e9a24c64c02dd64a930a8387edf5472, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -9301,6 +9306,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3898964847738199202, guid: cb817b903f0425b45a0730b0bca57f5e, type: 3}
   m_PrefabInstance: {fileID: 3481541707535875648}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &453469809930822372 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7327285388055376681, guid: cb817b903f0425b45a0730b0bca57f5e, type: 3}
+  m_PrefabInstance: {fileID: 3481541707535875648}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34034d5a3b53d99a2b776ec0a3c0fc41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1001 &511707332440359949
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9391,8 +9407,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4021937079315715329}
-  - {fileID: 7980700936075059723}
   - {fileID: 7387377499045950251}
+  - {fileID: 7980700936075059723}
   m_Father: {fileID: 8222316790355571776}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1845951360833497748
@@ -10259,7 +10275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &7263755547818076122
 SpriteRenderer:
   serializedVersion: 2
@@ -10307,7 +10323,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -99
+  m_SortingOrder: -98
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: b752631e9fd7e8e46ab7be3ae43b48d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -10619,6 +10635,8 @@ SceneRoots:
   - {fileID: 1770438037}
   - {fileID: 927111900}
   - {fileID: 250374526}
+  - {fileID: 485295334}
+  - {fileID: 463520023}
   - {fileID: 3481541707535875648}
   - {fileID: 511707332440359949}
   - {fileID: 884929153}

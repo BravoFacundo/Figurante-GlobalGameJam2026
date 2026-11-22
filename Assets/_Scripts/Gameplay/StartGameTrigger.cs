@@ -7,7 +7,6 @@ public class StartGameTrigger : MonoBehaviour
     
     [Header("Dependencies")]
     [SerializeField] GameController gameController;
-    [SerializeField] GameObject entrance;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,7 +14,8 @@ public class StartGameTrigger : MonoBehaviour
         {
             Debug.Log("Exit Tutorial Area - Starting Game");
             gameController.StartGame();
-            entrance.SetActive(true);
+            gameController.EnableEntranceColliders(true);
+            Destroy(this.GetComponent<Collider2D>());
         }
     }
 }

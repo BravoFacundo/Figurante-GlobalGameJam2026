@@ -90,29 +90,41 @@ public class GameController : MonoBehaviour
 
     [Header("Carriage")]
     [SerializeField] private CarriageHandler carriage;
-    
+    [SerializeField] private PlayerController player;
+    [SerializeField] private Transform startPosCarriage;
+    [SerializeField] GameObject entrance;
+
     [Header("Tutorial")]
     [SerializeField] private PorterHandler porter;
     [SerializeField] private CinematicHandler cinematicHandler;
+    [SerializeField] private Transform startPosPlayer;
+    [SerializeField] private StartGameTrigger startGameTrigger;
 
     public void StartTutorial()
     {        
-        SpawnSuspects(npcCount);
-        GenerateAllClues();
+        if (spawnedSuspects.Count == 0)
+        {
+            SpawnSuspects(npcCount);
+            GenerateAllClues();
+            porter.gameObject.SetActive(true);
+        }
         cameraFollowPlayer.SetTutorialBounds();
-        porter.gameObject.SetActive(true);
-        musicManager.EnterGame();//musicManager.EnterTutorial();
-        //_musicManager.SetMusicTrack();
+        musicManager.EnterTutorial();
+        _uiManager.startedGame = true;
+        startGameTrigger.hasEntered = false;
+        //player.transform.position = startPosPlayer.position;
     }
     public void StartGame()
     {
         AssignCluesToWitnesses();
         SetupTimer();
+        _uiManager.startedGame = true;
+        _uiManager.endedTutorial = true;
+        _uiManager.ShowScreen("Game");
         cameraFollowPlayer.SetGameplayBounds();
         musicManager.EnterGame();
-        if (carriage != null) carriage.StartMovement();
-        else Debug.LogWarning("Carriage no está asignado en UIManager!");
-        //_musicManager.SetMusicTrack();
+        carriage.StartMovement();
+        carriage.transform.position = startPosCarriage.position;
     }
     
     private void SetupTimer()
@@ -439,6 +451,11 @@ public class GameController : MonoBehaviour
             list[i] = list[j];
             list[j] = temp;
         }
+    }
+
+    public void EnableEntranceColliders(bool value)
+    {
+        entrance.SetActive(value);
     }
 
 }

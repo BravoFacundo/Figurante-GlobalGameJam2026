@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private SoundManager soundManager;
     [SerializeField] private MusicManager musicManager;
     [SerializeField] private CinematicHandler cinematicHandler;
+    public bool startedGame = false;
+    public bool endedTutorial = false;
+    [SerializeField] private TMP_Text playText;
 
     [Header("Clock Settings")]
     [SerializeField] private float _gameTimeInSeconds = 120f;
@@ -58,10 +62,13 @@ public class UIManager : MonoBehaviour
         musicManager.FirstEnterMenu();
     }
 
-
     private void Update()
     {
-        if (Input.GetKeyDown(pauseKey)) ShowScreen("Menu");
+        if (Input.GetKeyDown(pauseKey))
+        {
+            ShowScreen("Menu");
+            musicManager.FirstEnterMenu();
+        }
 
         if (!_isTimerRunning) return;
         
@@ -89,20 +96,21 @@ public class UIManager : MonoBehaviour
                 menuScreen?.SetActive(true);
                 musicManager.EnterMenu();
                 break;
-            case "Score":
-                scoreScreen?.SetActive(true);
-                Debug.Log("Score Screen");
-                break;
             case "Credits":
                 creditsScreen?.SetActive(true);
                 Debug.Log("Credits Screen");
                 break;
+            case "Score":
+                scoreScreen?.SetActive(true);
+                Debug.Log("Score Screen");
+                break;
 
             case "Tutorial":
                 Time.timeScale = 1f;
-                gameController.StartTutorial();
                 tutorialScreen?.SetActive(true);
-                musicManager.EnterGame();//musicManager.EnterTutorial();
+                musicManager.EnterTutorial(); //musicManager.EnterGame();
+                playText.text = "Continuar";
+                gameController.StartTutorial();
                 Debug.Log("Tutorial iniciado");
                 break;
             case "Game":
@@ -115,12 +123,18 @@ public class UIManager : MonoBehaviour
             case "Win":
                 winScreen?.SetActive(true);
                 SoundManager.PlaySoundAndDestroy(winAudio);
-                //Destroy(musicManager);
+                playText.text = "Jugar";
+                startedGame = false;
+                endedTutorial = false;
+                gameController.EnableEntranceColliders(false);
                 break;
             case "Lose":
                 loseScreen?.SetActive(true);
                 SoundManager.PlaySoundAndDestroy(loseAudio);
-                //Destroy(musicManager);                    
+                playText.text = "Jugar";
+                startedGame = false;
+                endedTutorial = false;
+                gameController.EnableEntranceColliders(false);
                 break;
 
             default:
@@ -149,7 +163,8 @@ public class UIManager : MonoBehaviour
     {
         SoundManager.PlaySoundAndDestroy(buttonAudio);
         yield return new WaitForSecondsRealtime(1f);
-        ShowScreen("Tutorial");
+        if (startedGame && endedTutorial) ShowScreen("Game");
+        else ShowScreen("Tutorial");
     }
     public void ButtonPressed_Score() => StartCoroutine(DelayedButtonPressed_Score());
     private IEnumerator DelayedButtonPressed_Score()
@@ -178,6 +193,13 @@ public class UIManager : MonoBehaviour
         SoundManager.PlaySoundAndDestroy(buttonReversedAudio);
         yield return new WaitForSecondsRealtime(1f);
         ShowScreen("Menu");
+    }
+    public void ButtonPressed_ReturnEnd() => StartCoroutine(DelayedButtonPressed_ReturnEnd());
+    private IEnumerator DelayedButtonPressed_ReturnEnd()
+    {
+        SoundManager.PlaySoundAndDestroy(buttonReversedAudio);
+        yield return new WaitForSecondsRealtime(1f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     #endregion

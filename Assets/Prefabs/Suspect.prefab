@@ -194,8 +194,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.0068622776}
-  m_Size: {x: 0.37146273, y: 0.3912243}
+  m_Offset: {x: 0, y: -0.050670482}
+  m_Size: {x: 0.33900833, y: 0.35704333}
   m_Direction: 0
 --- !u!1 &395598200066638812
 GameObject:
@@ -1119,7 +1119,6 @@ MonoBehaviour:
   bodyRenderer: {fileID: 7263755548266984390}
   speechRoot: {fileID: 3734890091711749163}
   indicatorRoot: {fileID: 395598200066638812}
-  interrogateIndicator: {fileID: 0}
   interactionFill: {fileID: 5449942804520660312}
   interaction: {fileID: 4860301770059003595}
   clueImg: {fileID: 6099294322376711649}
