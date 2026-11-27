@@ -170,7 +170,8 @@ public class SuspectHandler : MonoBehaviour, IInteractable
     {
         if (isWitness)
         {
-            gameController.OnPlayerInvestigate(assignedClue);
+            // Count each witness only once, re-asking must not confirm a clue by itself
+            if (!givedClue) gameController.OnPlayerInvestigate(assignedClue);
             givedClue = true;
             indicatorRoot.SetActive(false);
             speechRoot.SetActive(true);

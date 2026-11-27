@@ -177,14 +177,24 @@ public class PlayerController : MonoBehaviour
             InteractRadius
         );
 
+        // Pick the closest one, not the first collider found (avoids accusing the wrong NPC in a crowd)
+        IInteractable closest = null;
+        float closestDistance = float.MaxValue;
+
         foreach (var hit in hits)
         {
             IInteractable suspect = hit.GetComponentInParent<IInteractable>();
-            if (suspect != null)
-                return suspect;
+            if (suspect == null) continue;
+
+            float distance = ((Vector2)suspect.GetTransform().position - (Vector2)transform.position).sqrMagnitude;
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closest = suspect;
+            }
         }
 
-        return null;
+        return closest;
     }
 
 

@@ -286,7 +286,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1456692667}
   m_Father: {fileID: 109091031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &57282669
@@ -827,9 +828,7 @@ Transform:
   m_Children:
   - {fileID: 1867941676}
   - {fileID: 57282668}
-  - {fileID: 1456692667}
   - {fileID: 764922229}
-  - {fileID: 1583860914}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &184793062
@@ -3524,7 +3523,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1583860914}
   m_Father: {fileID: 109091031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &764922230
@@ -3559,12 +3559,14 @@ MonoBehaviour:
   tutorialScreen: {fileID: 394043587}
   winScreen: {fileID: 1863901859}
   loseScreen: {fileID: 507320950}
+  exitButton: {fileID: 616855696}
   winAudio: {fileID: 8300000, guid: f960e847ef9b6664ea3d861004775acf, type: 3}
   loseAudio: {fileID: 8300000, guid: fae23f13d69287a42b7f9b66ffde8460, type: 3}
   buttonAudio: {fileID: 8300000, guid: b8c14ea3d09983fbaaa68bfed1f69eb2, type: 3}
   buttonReversedAudio: {fileID: 8300000, guid: dc01fecdce86fb745a90d7dba25ac5d6, type: 3}
   interactKey: 32
   pauseKey: 27
+  altPauseKey: 112
   _timerText: {fileID: 863879522}
 --- !u!1 &791136681
 GameObject:
@@ -6118,12 +6120,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1456692666}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 109091031}
+  m_Father: {fileID: 57282668}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1456692668
 AudioSource:
@@ -6924,12 +6926,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583860913}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 109091031}
+  m_Father: {fileID: 764922229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1583860915
 MonoBehaviour:

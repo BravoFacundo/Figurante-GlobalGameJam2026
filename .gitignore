@@ -73,3 +73,14 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# IDE folders and generated solutions
+/.idea/
+/.vscode/
+*.slnx
+
+# Audio editor caches
+*.sfk
+
+# Publishing zips
+*.zip

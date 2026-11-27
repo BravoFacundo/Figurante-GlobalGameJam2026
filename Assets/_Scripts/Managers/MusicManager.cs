@@ -32,7 +32,7 @@ public class MusicManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        // No DontDestroyOnLoad: single scene, ReturnEnd reloads it and the scene brings its own MusicManager
 
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;

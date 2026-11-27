@@ -35,6 +35,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject loseScreen;
 
+    [Header("Platform")]
+    [SerializeField] private GameObject exitButton;
+
     [Header("Audio Clips")]
     [SerializeField] private AudioClip winAudio;
     [SerializeField] private AudioClip loseAudio;
@@ -44,6 +47,7 @@ public class UIManager : MonoBehaviour
     [Header("Inputs")]
     [SerializeField] private KeyCode interactKey = KeyCode.Space;
     [SerializeField] private KeyCode pauseKey = KeyCode.Escape;
+    [SerializeField] private KeyCode altPauseKey = KeyCode.P; // Esc is eaten by the browser in WebGL
 
     [Header("Timer")]
     [SerializeField] private Text _timerText;
@@ -58,13 +62,15 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        if (exitButton != null) exitButton.SetActive(Application.platform != RuntimePlatform.WebGLPlayer);
         ShowScreen("Menu");
         musicManager.FirstEnterMenu();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(pauseKey))
+        bool pausePressed = Input.GetKeyDown(pauseKey) || Input.GetKeyDown(altPauseKey);
+        if (pausePressed && startedGame) // only pause during a run
         {
             ShowScreen("Menu");
             musicManager.FirstEnterMenu();
@@ -117,7 +123,7 @@ public class UIManager : MonoBehaviour
                 Time.timeScale = 1f;
                 hudScreen?.SetActive(true);
                 musicManager.EnterGame();
-                StartTimer();
+                // Timer is started once by GameController.SetupTimer, resuming from pause must not reset it
                 break;
 
             case "Win":

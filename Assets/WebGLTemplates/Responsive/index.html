@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>{{{ PRODUCT_NAME }}}</title>
+  <style>
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: {{{ BACKGROUND_COLOR }}}; }
+    /* The container always fills the page (or the iframe it lives in) */
+    #unity-container { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+    #unity-canvas { display: block; width: 100%; height: 100%; background: {{{ BACKGROUND_COLOR }}}; outline: none; }
+    #unity-loading { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 40%; max-width: 320px; }
+    #unity-progress-track { height: 6px; background: rgba(255, 255, 255, 0.2); border-radius: 3px; overflow: hidden; }
+    #unity-progress-fill { height: 100%; width: 0%; background: {{{ PROGRESS_COLOR }}}; transition: width 0.1s; }
+    #unity-warning { position: absolute; left: 50%; top: 8px; transform: translateX(-50%); font: 14px sans-serif; color: #fff; background: rgba(0, 0, 0, 0.7); padding: 6px 10px; border-radius: 4px; display: none; }
+  </style>
+</head>
+<body>
+  <div id="unity-container">
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+    <div id="unity-loading"><div id="unity-progress-track"><div id="unity-progress-fill"></div></div></div>
+    <div id="unity-warning"></div>
+  </div>
+  <script>
+    // ASPECT_RATIO (Player Settings > Resolution and Presentation):
+    //   empty  -> the canvas fills the whole frame, any size
+    //   "16:9" -> keeps that ratio and letterboxes with BACKGROUND_COLOR
+    var aspectSetting = "{{{ ASPECT_RATIO }}}".trim();
+    var container = document.querySelector("#unity-container");
+    var canvas = document.querySelector("#unity-canvas");
+    var loading = document.querySelector("#unity-loading");
+    var progressFill = document.querySelector("#unity-progress-fill");
+    var warning = document.querySelector("#unity-warning");
+
+    function parseAspect(value) {
+      var parts = value.split(":");
+      if (parts.length !== 2) return 0;
+      var w = parseFloat(parts[0]), h = parseFloat(parts[1]);
+      return (w > 0 && h > 0) ? w / h : 0;
+    }
+    var aspect = parseAspect(aspectSetting);
+
+    function resizeCanvas() {
+      if (!aspect) { canvas.style.width = "100%"; canvas.style.height = "100%"; return; }
+      var w = container.clientWidth, h = container.clientHeight;
+      if (w / h > aspect) { w = h * aspect; } else { h = w / aspect; }
+      canvas.style.width = Math.floor(w) + "px";
+      canvas.style.height = Math.floor(h) + "px";
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    function showWarning(message, type) {
+      if (type === "error") console.error(message); else console.warn(message);
+      warning.textContent = message;
+      warning.style.display = "block";
+      setTimeout(function () { warning.style.display = "none"; }, 5000);
+    }
+
+    var buildUrl = "Build";
+    var config = {
+      dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
+      frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
+#if USE_THREADS
+      workerUrl: buildUrl + "/{{{ WORKER_FILENAME }}}",
+#endif
+#if USE_WASM
+      codeUrl: buildUrl + "/{{{ CODE_FILENAME }}}",
+#endif
+#if MEMORY_FILENAME
+      memoryUrl: buildUrl + "/{{{ MEMORY_FILENAME }}}",
+#endif
+#if SYMBOLS_FILENAME
+      symbolsUrl: buildUrl + "/{{{ SYMBOLS_FILENAME }}}",
+#endif
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+      productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+      productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
+      matchWebGLToCanvasSize: true, // render resolution follows the canvas size
+      showBanner: showWarning,
+    };
+
+    var script = document.createElement("script");
+    script.src = buildUrl + "/{{{ LOADER_FILENAME }}}";
+    script.onload = function () {
+      createUnityInstance(canvas, config, function (progress) {
+        progressFill.style.width = (100 * progress) + "%";
+      }).then(function () {
+        loading.style.display = "none";
+        canvas.focus();
+      }).catch(function (message) {
+        showWarning(message, "error");
+      });
+    };
+    document.body.appendChild(script);
+
+    // Keyboard input needs focus inside an iframe (itch.io, portfolio)
+    canvas.addEventListener("pointerdown", function () { canvas.focus(); });
+  </script>
+</body>
+</html>
